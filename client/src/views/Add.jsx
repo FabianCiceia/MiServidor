@@ -8,7 +8,7 @@ import { useNavigate, Link} from "react-router-dom";
 
 function Add() {
   const navigate = useNavigate(); 
-  const baseURL ="http://localhost:8000/api/users/";
+  const baseURL ="http://localhost:8000/api/pirates/";
   function addData(pront) {
     axios
     .post(`${baseURL}new`, pront)
@@ -30,15 +30,25 @@ function Add() {
 
   const initialValues = {
       name: '',
-      age: ''
+      image: '',
+      chests: '',
+      position: 'captain',
+      pegLeg: true,
+      eyePatch: true,
+      hookHand: true,
   };
   const onSubmit = (values,  { resetForm }) => {
+    addData(values);
     resetForm();
-    addData(values)
 };
 const validationSchema = Yup.object({
-  name: Yup.string().required().min(3),
-  age: Yup.string().required(),
+  name: Yup.string().required(),
+  image: Yup.string(),
+  chests: Yup.number().required().min(0),
+  position: Yup.string().required(),
+  pegLeg: Yup.bool().required(),
+  eyePatch: Yup.bool().required(),
+  hookHand: Yup.bool().required(),
 });
   return (
     <div className='LoginForm'>
@@ -51,11 +61,30 @@ const validationSchema = Yup.object({
             <div className='row g-3 align-items-center'>
               <h1>Add player</h1>
                 <InputForm  name="name" />
-                {/* <ErrorMessage  className="form-text" name="name" component="div" /> */}
-                <InputForm name="age" />
-                {/* <ErrorMessage  className="form-text" name="age" component="div" /> */}
+                <InputForm name="image" />
+                <InputForm type="number" name="chests" />
+                <InputForm name="catch" />
+                <Field as="select"  className="col-form-label" type="text" id="position" name="position">
+                  <option value="captain">Captain</option>
+                  <option value="firstMate">First Mate</option>
+                  <option value="quarterMaster">Quarter Master</option>
+                  <option value="boatswain">Boatswain</option>
+                  <option value="powderMonkey">Powder Monkey</option>
+                </Field>
                 <div>
-                    <button className="" type="submit">Add</button>
+                  <Field type="checkbox" id="pegLeg"name="pegLeg"/>
+                  <label>Peg Leg</label>
+                </div>
+                <div>
+                  <Field type="checkbox" id="eyePatch"name="eyePatch"/>
+                  <label>Eye Patch</label>
+                </div>
+                <div>
+                  <Field type="checkbox" id="hookHand"name="hookHand"/>
+                  <label>Hook Hand</label>
+                </div>
+                <div>
+                    <button className="btn btn-primary" type="submit">Add</button>
                 </div>
             </div>
           </Form>

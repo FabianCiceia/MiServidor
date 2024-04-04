@@ -1,30 +1,29 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import {Link} from "react-router-dom";
-// import Swal from 'sweetalert2'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import DeleteData from "../components/DeleteData";
-
-function List() {
-    const url = "http://localhost:8000/api/users/";
-    const [ listaActualizada,useListaActualizada] = useState(true);
+function List({listaActualizada,useListaActualizada}) {
+    const url = "http://localhost:8000/api/pirates/";
+    
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    useEffect(() => {
+    React.useEffect(() => {
         axios
             .get(url)
             .then((response) => {
-                console.log(response.data)
-                setData(response.data.users);
-                useListaActualizada(false)
+                // console.log(response.data)
+                setData(response.data.pirates);
+                useListaActualizada(false);
                 setIsLoading(false);
             })
             .catch((error) => {
                 setError(error);
                 setIsLoading(false);
             });
+            
     }, [listaActualizada]);
 
     if(error){
@@ -47,26 +46,26 @@ function List() {
         )
     }
     return (
-        <div className="container">
-            <table className="table table-striped">
-                <thead className="thead-dark">
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Age</th>
-                        {/* <th scope="col">Actions</th> */}
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((data, index) => (
-                        <tr key={index}>
-                            
-                            <th><Link to={`/edit/${data._id}`}>{data.name}</Link></th>
-                            <th>{data.age}</th>
-                            <th><DeleteData useListaActualizada={useListaActualizada } id={data._id}/></th>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="container d-flex flex-column">
+            <div className="d-flex flex-column" >
+                {data.map((data, index) => (
+                            <div className="p-2" key={index}>
+                                <div className="container flex-wrap d-flex  align-items-center ">
+                                    <div  className="p-1 align-self-stretch">
+                                        <img style={{ height: '200px', width: '200px'}} src={data.image} className="img-fluid rounded-start" alt="..."/>
+                                    </div>
+                                    <div className="p-1 align-self-stretch">
+                                        <div className="card-body">
+                                            <h1>{data.name}</h1>
+                                            <Link className="btn btn-primary" to={`/pirates/${data._id}`}>View Pirate</Link>
+                                            <DeleteData id={data._id} useListaActualizada={useListaActualizada} label="Walk the Plank" />
+                                        </div>
+                                        {/* <EditStatus listaActualizada={listaActualizada} useListaActualizada={useListaActualizada} info={"pegLeg"} label={"Peg Leg"} id={data._id}/> */}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+            </div>
         </div>
     );
 }

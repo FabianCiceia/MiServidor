@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -10,9 +9,9 @@ function Navbar() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        <Link className="nav-link" to="/">List</Link>
-                        <Link className="nav-link" to="/add">Add</Link>
-                        <Link className="nav-link" to="/register">Register</Link>
+                        <Link className="nav-link" to="/pirates">List</Link>
+                        <Link className="nav-link" to="/pirates/new">Add</Link>
+                        <Link className="nav-link" to="/">Register</Link>
                     </div>
                 </div>
             </div>

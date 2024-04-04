@@ -1,10 +1,8 @@
 import React from 'react'
 import Swal from 'sweetalert2'
 import axios from "axios";
-
-function DeleteData({id, useListaActualizada}) {
-    const baseURL = "http://localhost:8000/api/users/";
-    
+function DeleteData({id, useListaActualizada,label}) {
+    const baseURL = "http://localhost:8000/api/pirates/";
     const delet = () =>{
         Swal.fire({
             title: "Deseas eliminar ?",
@@ -31,7 +29,7 @@ function DeleteData({id, useListaActualizada}) {
         });
     }
     return (
-        <button  className="btn btn-danger mx-3" onClick={()=>delet()}>Delete</button>
+        <button  className="btn btn-danger mx-3" onClick={()=>delet()}>{label}</button>
     )
 }
 

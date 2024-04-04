@@ -1,32 +1,12 @@
 import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik,  Form } from 'formik';
 import * as Yup from 'yup';
-import axios from "axios";
-import Swal from 'sweetalert2'
-import InputForm from '../components/InputForm';
-import { useNavigate, Link} from "react-router-dom";
+import InputForm from './InputForm';
+import { useNavigate} from "react-router-dom";
 
 function Register() {
     const navigate = useNavigate(); 
-    const baseURL ="http://localhost:8000/api/users/";
-    function addData(pront) {
-    axios
-    .post(`${baseURL}new`, pront)
-    .then(() => {
-        Swal.fire({
-            icon: "success",
-            title: `fue cargado correctamente`,
-        });
-        // navigate("");
-    })
-    .catch(err => {
-        Swal.fire({
-            icon: "error",
-            title: `Ha ocurrido un error`,
-        });
-        // console.log(err.response.data);
-    })
-}
+
 
 const initialValues = {
     firstName: '',
@@ -35,9 +15,8 @@ const initialValues = {
     password: '',
     confirmPassword: ''
 };
-const onSubmit = (values,  { resetForm }) => {
-    resetForm();
-    navigate("/");
+const onSubmit = (  ) => {
+    navigate("/pirates");
 };
 const validationSchema = Yup.object({
     firstName: Yup.string()
@@ -69,7 +48,7 @@ return (
                 <InputForm name="password" />
                 <InputForm name="confirmPassword" />
                 <div>
-                    <button className="" type="submit">Register</button>
+                    <button className="btn btn-primary" type="submit">Register</button>
                 </div>
             </div>
         </Form>
